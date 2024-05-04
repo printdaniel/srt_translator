@@ -10,6 +10,7 @@ from re import sub
 from banner import banner
 import pysrt
 from googletrans import Translator
+import time
 
 
 def scan_dir():
@@ -37,7 +38,7 @@ def translate_sub( ):
         linea_actual = subtitulo_original[linea].text
 
         try:
-            subs_nuevos[linea].text = t.translate(linea_actual, dest='es')
+            subs_nuevos[linea].text = t.translate(linea_actual, dest='es').text
             count += 1
             print(count)
         except:
