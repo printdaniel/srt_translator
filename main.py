@@ -6,11 +6,10 @@ una traducción propia dada la literalidad de la librería de Google, que se
 presta a interpretaciónes erróneas.
 """
 import os
-from re import sub
-from banner import banner
+from assets.banner import banner
+from assets.lenguages import LANGUAGES
 import pysrt
 from googletrans import Translator
-import time
 
 
 def scan_dir():
@@ -25,26 +24,25 @@ def scan_dir():
 def read_file():
     scan_dir()
     global subs
-    global subtitulo_original
+    global subs_originales
 
-    subs = pysrt.open(nombre_subtitulo)
-    subtitulo_original = subs
+    subs = pysrt.open(nombre_subtitulo, encoding='latin-1')
+    subs_originales = subs
 
-def translate_sub( ):
+def translate_sub():
     t = Translator()
-    count = 0
-    subs_nuevos = pysrt.open("Whiplash.srt")
-    for linea in range(len(subtitulo_original)):
-        linea_actual = subtitulo_original[linea].text
+    subs_nuevos = pysrt.SubRipFile()
+    print("traduccion iniciado")
 
+    for subtitulo in subs_originales:
         try:
-            subs_nuevos[linea].text = t.translate(linea_actual, dest='es').text
-            count += 1
-            print(count)
-        except:
-            pass
+            texto_traducido = t.translate(subtitulo.text, dest="es").text
+            subs_nuevos.append(pysrt.SubRipItem(start=subtitulo.start, end=subtitulo.end, text=texto_traducido))
+        except Exception as e:
+            print(f"Error al traducir subtítulo: {e}")
 
     subs_nuevos.save("nuevo_subtitulo.srt")
+    print("Traducción completada. Se ha guardado el archivo 'nuevo_subtitulo.srt'.")
 
 def menu():
     print(f"""
@@ -54,9 +52,7 @@ def menu():
     1) - Scanear directorios en busca de archivos .srt
     """)
 
-
 if __name__ == '__main__':
-    #menu()
-    scan_dir()
+    menu()
     read_file()
     translate_sub()
