@@ -1,13 +1,13 @@
 """
-Script para traducir automáticamente subnombre_subtitulos en caso de que no se consiga
-una versión en el idioa que se desea.
-Para ello se aprovecha la google trasnlate. Una vez traducido se deberá hacer
-una traducción propia dada la literalidad de la librería de Google, que se
-presta a interpretaciónes erróneas.
+Este script permite la traducción automática de subtítulos en caso de no
+disponerse de una versión en el idioma deseado. Para ello, se utiliza la
+herramienta Google Translate. No obstante, debido a las limitaciones de esta
+herramienta, que pueden generar traducciones imprecisas o ambiguas, se recomienda
+realizar una revisión posterior del texto traducido para asegurar su correcta
+interpretación.
 """
 import os
 from assets.banner import banner
-from assets.lenguages import LANGUAGES
 import pysrt
 from googletrans import Translator
 
@@ -60,7 +60,7 @@ def translate_sub():
 def menu():
     print(f"""
           {banner}
-    opciones:
+    Opciones:
 
     1) - Scanear directorios en busca de archivos .srt
     2) - Ver si hay subtitulos en el directorio
@@ -83,7 +83,5 @@ def main_control():
         else:
             print("Esa opción no está en el menú de opciones")
 
-
 if __name__ == '__main__':
     main_control()
-
