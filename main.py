@@ -63,9 +63,27 @@ def menu():
     opciones:
 
     1) - Scanear directorios en busca de archivos .srt
+    2) - Ver si hay subtitulos en el directorio
+    3) - Convertir  subtutulos
+    4) - Salir
     """)
+
+def main_control():
+    menu()
+    while True:
+        opcion = input("Ingrese una opción del menú: ")
+        if opcion == "1":
+            scan_directory_for_subtitle()
+        elif opcion == "2":
+            print(scan_directory_for_subtitle())
+        elif opcion == "3":
+            translate_sub()
+        elif opcion == "4":
+            break
+        else:
+            print("Esa opción no está en el menú de opciones")
 
 
 if __name__ == '__main__':
-    translate_sub()
+    main_control()
 
